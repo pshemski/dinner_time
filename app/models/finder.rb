@@ -1,0 +1,2 @@
+class Finder < ApplicationRecord
+end
