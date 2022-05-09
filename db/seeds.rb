@@ -5,3 +5,29 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'json'
+
+file = File.read('./recipes-en.json')
+recipes = JSON.parse(file)
+
+recipes.each do |recipe|
+  ingredients = recipe['ingredients']
+  author = Author.find_or_create_by(name: recipe['author'])
+  category = Category.find_or_create_by(name: recipe['category'])
+  cuisine = Cuisine.find_or_create_by(name: recipe['cuisine'])
+  recipe = Recipe.create(
+    title: recipe['title'],
+    cook_time: recipe['cook_time'],
+    prep_time: recipe['prep_time'],
+    ratings: recipe['ratings'],
+    cuisine: cuisine,
+    category: category,
+    author: author,
+    image: recipe['image']
+  )
+  ingredients.each do |ing|
+    ingredient = Ingredient.find_or_create_by(name: ing)
+    recipe.ingredients << ingredient
+  end
+end
