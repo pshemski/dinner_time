@@ -8,7 +8,7 @@
 
 require 'json'
 
-file = File.read('./recipes-en.json')
+file = File.read(Rails.root.join('lib', 'seeds', 'recipes-en.json'))
 recipes = JSON.parse(file)
 
 recipes.each do |recipe|
@@ -18,7 +18,7 @@ recipes.each do |recipe|
   cuisine = Cuisine.find_or_create_by(name: recipe['cuisine'])
   recipe = Recipe.create(
     title: recipe['title'],
-    cook_time: recipe['cook_time'],
+    cooking_time: recipe['cook_time'],
     prep_time: recipe['prep_time'],
     ratings: recipe['ratings'],
     cuisine: cuisine,
