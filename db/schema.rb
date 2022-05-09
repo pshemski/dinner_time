@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2022_05_09_095223) do
   create_table "ingredients_recipes", id: false, force: :cascade do |t|
     t.bigint "ingredient_id", null: false
     t.bigint "recipe_id", null: false
+    t.index ["ingredient_id", "recipe_id"], name: "index_ingredients_recipes_on_ingredient_id_and_recipe_id"
   end
 
   create_table "recipes", force: :cascade do |t|
