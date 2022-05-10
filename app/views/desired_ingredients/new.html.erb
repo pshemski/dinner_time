@@ -1,0 +1,42 @@
+<h2>Find ingrediends in your kitchen and see what you can cook with them</h2>
+<%= form_for(@desired_ingredient, local: true) do |form| %>
+  <% if @desired_ingredient.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@desired_ingredient.errors.count, "error") %> prohibited this desired_ingredient from being saved:</h2>
+
+      <ul>
+      <% @desired_ingredient.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name, "Ingredient" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Add ingredient to your pot" %>
+  </div>
+<% end %>
+
+
+<h3>Ingredients in Your Pot:</h3>
+<% if current_pot.desired_ingredients.any? %>
+  <ol>
+    <% current_pot.desired_ingredients.each do |ingredient| %>
+      <li class="pot-item"><%= ingredient.name %></li> 
+    <% end %>
+  </ol>
+  <%= link_to 'Clear your pot', clear_pot_path, method: :delete, class: 'button' %>
+
+  <h3>Below are most relevant recipes based on your available ingredients:</h3>
+
+  <% @most_relevant_recipes.each do |recipe| %>
+    <hr>
+    <%= image_tag(recipe.image, size: "100x100", alt: "#{recipe.title}") %>
+    <%= link_to recipe.title, recipe %>
+  <% end %>
+<% end %>
