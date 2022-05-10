@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root to: "desired_ingredients#new"
+  resources :finders, only: [:index, :show, :delete]
+  resources :desired_ingredients, only: [:new, :create]
   resources :recipes
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  delete 'clear_pot', to: 'desired_ingredients#clear_pot'
 end
