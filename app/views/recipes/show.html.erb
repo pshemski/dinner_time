@@ -1,6 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <%= image_tag(@recipe.image, size: "200x200", alt: "#{@recipe.title}") %>
+</p>
+
+<p>
   <strong>Title:</strong>
   <%= @recipe.title %>
 </p>
@@ -22,23 +26,26 @@
 
 <p>
   <strong>Cuisine:</strong>
-  <%= @recipe.cuisine %>
+  <%= @recipe.cuisine.name %>
 </p>
 
 <p>
   <strong>Category:</strong>
-  <%= @recipe.category %>
+  <%= @recipe.category.name %>
 </p>
 
 <p>
   <strong>Author:</strong>
-  <%= @recipe.author %>
+  <%= @recipe.author.name %>
 </p>
 
 <p>
-  <strong>Image:</strong>
-  <%= @recipe.image %>
+  <ol>
+    <% @recipe.ingredients.each do |ingredient| %>
+      <li><%= ingredient.name %></li>
+    <% end %>
+  </ol>
 </p>
 
-<%= link_to 'Edit', edit_recipe_path(@recipe) %> |
-<%= link_to 'Back', recipes_path %>
+
+<%= link_to 'Back', new_desired_ingredient_path, class: 'button' %>
