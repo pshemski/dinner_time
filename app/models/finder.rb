@@ -2,11 +2,9 @@ class Finder < ApplicationRecord
   has_many :desired_ingredients
 
   def all_recipes
-    recipes_array = []
-    desired_ingredients.each do |ingredient| 
-      recipes_array << ingredient.recipes
-    end
-    recipes_array.flatten!
+    desired_ingredients.map do |ingredient| 
+      ingredient.recipes
+    end.flatten!
   end
 
   # recipes in order from most relevant to the least
