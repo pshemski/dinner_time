@@ -2,9 +2,7 @@ class Finder < ApplicationRecord
   has_many :desired_ingredients
 
   def all_recipes
-    desired_ingredients.map do |ingredient| 
-      ingredient.recipes
-    end.flatten!
+    desired_ingredients.map(&:recipes).flatten!
   end
 
   # recipes in order from most relevant to the least
@@ -17,6 +15,6 @@ class Finder < ApplicationRecord
   end
 
   def most_relevant_recipes_only
-    recipes_data.map { |data| data.first }
+    recipes_data.map(&:first)
   end
 end
